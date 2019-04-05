@@ -1,7 +1,7 @@
 function createProduct() {
   console.log("Inserting a new product...\n");
   var query = connection.query(
-    "INSERT INTO products SET ?",
+    "INSERT INTO items SET ?",
     {
       name: "macbook",
       price: 300.00,
