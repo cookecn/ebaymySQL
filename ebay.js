@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 
     port: 3306,
 
-    user: "root"
+    user: "root",
     password: "",
     database: ebay_db
 });
