@@ -5,7 +5,7 @@ USE eBay_DB;
 
 CREATE TABLE items(
   id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(100) NOT NULL,
+  item_name VARCHAR(100) NOT NULL,
   price INT default 0,
   PRIMARY KEY (id)
 );
