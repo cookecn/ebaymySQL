@@ -1,4 +1,4 @@
-function createProduct() {
+function createItem() {
   console.log("Inserting a new product...\n");
   var query = connection.query(
     "INSERT INTO items SET ?",
@@ -34,7 +34,7 @@ function createProduct() {
     function(err, res) {
       console.log(res.affectedRows + " product inserted!\n");
       // Call updateProduct AFTER the INSERT completes
-      updateProduct();
+      updateItem();
     }
   );
 

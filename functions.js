@@ -14,31 +14,36 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
-    postItem();
-    bidItem();
+    initPrompts();
 });
 
 
 /* The basic application is fairly simple: Upon loading up the program, 
   the user is prompted on whether they would like to "POST AN ITEM" or "BID ON AN ITEM"*/
 
-  inquirer
-  .prompt([
-    {
-      type: 'list',
-      name: 'ebayBid',
-      message: 'Which would you rather?',
-      choices: ['Post an item', 'Bid on an item'],
-    },
-  ])
-  .then(function(user) {
-    console.log('Answer:', answers.ebayBid);
-    if (user.choices[0]) {
-        whatItem();
-    } else {
-        bidItem();
-    }
-  });
+  //add an exit
+function initPrompts() {
+    inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'ebayBid',
+        message: 'Which would you rather?',
+        choices: ['Post an item', 'Bid on an item'],
+      },
+    ])
+    .then(function(answer) {
+      console.log('Answer:', answer.list);
+      if (answer.list === 'Post an item') {
+          whatItem();
+      } else if {
+          bidItem();
+      } else {
+          connection.end;
+      }
+    });
+}
+
 
   function whatItem() {
     inquirer
@@ -46,15 +51,46 @@ connection.connect(function(err) {
 
         {
             type: "input",
-            name: "userItem",
+            name: "item",
             message: "What is your item name?"
             
         },
+        //add a category option
+        {
+            type: "choice",
+            name: "userItemAdd",
+            message: "Would you like to add your item to ebay?",
+            choices: ['Y', 'N']
+        },
+        //add startingbid option
+        {
+            type:
+            name:
+            validate 
+        }
+
        
     ]).then(function(user) {
-        console.log('You said your item name was: ', user.userItem);
-        connection.query(
+        console.log('You said your item name is: ', user.userItem);
+        if (user.choices === 'Y') {
+            console.log("Adding your item to ebay");
+            var query = connection.query(
+                "INSERT INTO items WHERE ?",
+                {
+                    item_name: answer.item,
+                    category: answer.category,
+                    starting_bid: answer.startingBid || 0,
+                    highest_bid: answer.startingBid || 0
 
+                }
+            )
+        } else {
+            initPrompts();
+        }
+
+        console.log
+        var query = connection.query(
+            "INSERT INTO items "
         )
     })
   }
